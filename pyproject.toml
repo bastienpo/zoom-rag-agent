@@ -1,12 +1,21 @@
 [project]
-name = "zoom-sample-project"
+name = "zoom-rag-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = "A RAG agent used in Zoom"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "cadwyn>=4.2.4",
     "fastapi[standard]>=0.115.0",
+    "llama-index-core>=0.11.12",
     "llama-index-embeddings-jinaai>=0.3.1",
     "llama-index-vector-stores-qdrant>=0.3.0",
-    "llama-index>=0.11.12",
+    "orjson>=3.10.7",
+    "pydantic>=2.9.2",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "llama-index-utils-workflow>=0.2.1",
+    "pytest>=8.3.3",
 ]
