@@ -1,7 +1,8 @@
 import logging
 import os
 
-from llama_index.utils.workflow import draw_all_possible_flows
+from llama_index.core import VectorStoreIndex
+from llama_index.core.schema import NodeWithScore
 
 from llama_index.core.workflow import (
     StartEvent,
@@ -11,6 +12,10 @@ from llama_index.core.workflow import (
     step,
 )
 from llama_index.llms.together import TogetherLLM
+from llama_index.vector_stores.qdrant import QdrantVectorStore
+
+import qdrant_client
+
 from dotenv import load_dotenv, find_dotenv
 
 # Load environment variables
@@ -19,8 +24,8 @@ load_dotenv(find_dotenv())
 _LOGGER = logging.getLogger(__name__)
 
 
-class GenerationEvent(Event):
-    content: str
+class RetrieveEvent(Event):
+    documents: list[NodeWithScore]
 
 
 class RagAgentWorkflow(Workflow):
@@ -29,22 +34,33 @@ class RagAgentWorkflow(Workflow):
         api_key=os.getenv("TOGETHER_API_KEY"),
     )
 
-    @step
-    async def generation(self, event: StartEvent) -> GenerationEvent:
-        if not event.prompt:
-            raise ValueError("Prompt is required.")
+    _client = qdrant_client.QdrantClient(
+        os.getenv("QDRANT_URL"),
+        api_key=os.getenv("QDRANT_API_KEY"),
+    )
 
+    def __init__(self):
+        self.vector_store = QdrantVectorStore(
+            client=self._client,
+            collection_name="user-data",
+        )
+
+    @step
+    async def retrieve(self, event: StartEvent) -> RetrieveEvent:
+        index = VectorStoreIndex.from_vector_store(self.vector_store)
+        retriever = index.as_retriever()
+        documents = await retriever.aretrieve(event.prompt)
+        return RetrieveEvent(documents=documents)
+
+    @step
+    async def generation(self, event: RetrieveEvent) -> StopEvent:
         prompt = event.prompt
         content = await self.llm.acomplete(prompt)
 
-        return GenerationEvent(content=str(content))
-
-    @step
-    async def identity(self, event: GenerationEvent) -> StopEvent:
-        return StopEvent(result=event.content)
+        return StopEvent(result=str(content))
 
 
-async def run_rag_agent_workflow():
+async def run_rag_agent_workflow() -> None:
     w = RagAgentWorkflow(timeout=60)
     print(await w.run(prompt="How are you?"))
 
