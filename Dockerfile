@@ -20,4 +20,4 @@ COPY --from=builder --chown=app:app /app /app
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-CMD ["fastapi", "dev", "--host", "0.0.0.0", "/app/src/uv_docker_example"]
+CMD ["fastapi", "dev", "--host", "0.0.0.0", "/app/main.py"]
