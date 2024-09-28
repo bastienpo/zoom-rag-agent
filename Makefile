@@ -1,10 +1,11 @@
 .PHONY: run dev clean quality
 
 run:
-	uv run fastapi run
+	uv run granian --interface asgi --workers 4 --threads 4 --loop uvloop app.main:app
 
 dev:
-	uv run fastapi dev --app /app/main.py
+	@echo "Starting development server..."
+	@uv run granian --interface asgi --reload --loop uvloop --workers 1 app.main:app
 
 clean:
 	rm -rf **/*.pyc
