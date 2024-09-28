@@ -24,6 +24,9 @@ def create_qdrant_rag_tool() -> FunctionTool:
 
     Args:
         collection_name: The name of the collection to create the RAG tool for.
+
+    Returns:
+        FunctionTool: The RAG tool.
     """
     vector_store = connect_to_vector_store()
     index = VectorStoreIndex.from_vector_store(vector_store)
@@ -46,7 +49,14 @@ class MultiAgentWorkflow(Workflow):
 
     @step
     async def generation(self, event: StartEvent) -> StopEvent:
-        """Generation step."""
+        """Generation step.
+
+        Args:
+            event: The start event.
+
+        Returns:
+            StopEvent: The stop event.
+        """
         prompt = event.prompt
         chat_message = ChatMessage(role=MessageRole.USER, content=prompt)
         content = await self.llm.achat([chat_message])
