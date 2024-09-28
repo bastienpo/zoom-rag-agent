@@ -1,25 +1,21 @@
 """Utility functions for the chatbot."""
 
-import os
-
 from llama_index.core.vector_stores.types import VectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 
-from app.utils import load_from_env
+from app.config import QDRANT_API_KEY, QDRANT_COLLECTION, QDRANT_URL
 
 
 def connect_to_vector_store() -> VectorStore:
     """Connect to the vector store.
 
+    Support Qdrant local and cloud.
+
     Returns:
         VectorStore: The vector store.
     """
-    collection_name = load_from_env("QDRANT_COLLECTION")
-    url = load_from_env("QDRANT_URL")
-    api_key = os.getenv("QDRANT_API_KEY")
-
     return QdrantVectorStore(
-        collection_name=collection_name,
-        url=url,
-        api_key=api_key,
+        collection_name=QDRANT_COLLECTION,
+        url=QDRANT_URL,
+        api_key=QDRANT_API_KEY,
     )

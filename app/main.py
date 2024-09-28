@@ -5,7 +5,7 @@ from datetime import date
 from cadwyn import Cadwyn, Version, VersionBundle
 from cadwyn.structure.versions import HeadVersion
 
-from app.config import init_environment
+from app import chatbot
 
 version_bundle = VersionBundle(
     HeadVersion(),
@@ -13,8 +13,4 @@ version_bundle = VersionBundle(
 )
 
 app = Cadwyn(title="Zoom Rag Agent API", versions=version_bundle)
-
-if __name__ == "__main__":
-    init_environment()
-
-# app.generate_and_include_versioned_routers(chatbot.router)
+app.generate_and_include_versioned_routers(chatbot.router)

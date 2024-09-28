@@ -1,20 +1,19 @@
 """API for the chatbot."""
 
-from cadwyn import VersionedAPIRouter
-from app.chatbot.schema import Message
-from fastapi.responses import ORJSONResponse, HTTPException
-
 from uuid import uuid4
+
+from cadwyn import VersionedAPIRouter
+from fastapi.responses import JSONResponse
+
+from app.chatbot.schema import Message
 
 router = VersionedAPIRouter(tags=["Chatbot"], prefix="/v1")
 
 
-@router.post("/messages", response_class=ORJSONResponse)
-async def messages(message: Message):
-    if message.stream:
-        return HTTPException(status_code=501, detail="Streaming is not implemented")
-
-    return ORJSONResponse(
+@router.post("/messages", tags=["Chatbot"])
+async def send_messages(message: Message) -> JSONResponse:
+    """Send messages to the chatbot."""
+    return JSONResponse(
         status_code=200,
         content={
             "id": f"msg_{uuid4().hex[:8]}",

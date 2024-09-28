@@ -1,13 +1,8 @@
 """Configuration for the application."""
 
-import os
+from decouple import Choices, config
 
-from dotenv import find_dotenv, load_dotenv
-
-ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
-
-
-def init_environment() -> None:
-    """Initialize the environment."""
-    if ENVIRONMENT == "dev":
-        load_dotenv(find_dotenv())
+ENVIRONMENT = config("ENVIRONMENT", default="dev", cast=Choices(["dev", "prod", "test", "staging"]))
+QDRANT_URL = config("QDRANT_URL", default="http://localhost:6333")
+QDRANT_API_KEY = config("QDRANT_API_KEY", default="")
+QDRANT_COLLECTION = config("QDRANT_COLLECTION", default="default-collection")
