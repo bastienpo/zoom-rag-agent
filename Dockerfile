@@ -1,9 +1,11 @@
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
+ARG PYTHON_VERSION=3.12
+FROM ghcr.io/astral-sh/uv:python${PYTHON_VERSION}-bookworm-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 WORKDIR /app
 
+# Install dependencies without project
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
@@ -11,13 +13,33 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 ADD . /app
 
+# Install project dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
-FROM python:3.12-slim-bookworm
+FROM python:${PYTHON_VERSION}-slim-bookworm
 
-COPY --from=builder --chown=app:app /app /app
+# Create a non-root user
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "10001" \
+    appuser
 
-ENV PATH="/app/.venv/bin:$PATH"
+USER appuser
 
-CMD ["fastapi", "dev", "--host", "0.0.0.0", "/app/main.py"]
+# Copy the dependencies from the builder stage
+COPY --from=builder --chown=appuser:appuser /app /app
+
+WORKDIR /app
+
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+EXPOSE 8000
+
+CMD ["granian", "--interface", "asgi", "--workers", "4", "--threads", "4", "--loop", "uvloop", "--host", "0.0.0.0", "--port", "8000", "app.main:app"]

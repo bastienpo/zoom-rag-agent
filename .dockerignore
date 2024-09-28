@@ -1,0 +1,63 @@
+# Version control
+.git
+.github
+.gitignore
+
+# Documentation
+docs/
+*.md
+LICENSE
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Python-specific
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node.js-specific
+node_modules/
+npm-debug.log
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Other common exclusions
+*.bak
+*.tmp
+*.temp
+.cache/
+.env
