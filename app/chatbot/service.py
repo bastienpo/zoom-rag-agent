@@ -1,31 +1,3 @@
-"""Vector store for the RAG agent."""
-
-import os
-
-from app.utils import load_from_env
-from llama_index.vector_stores.qdrant import QdrantVectorStore
-from llama_index.core.vector_stores.types import VectorStore
-
-
-def get_vector_store() -> VectorStore:
-    """Get the vector store for the given environment.
-
-    Returns:
-        VectorStore: The vector store for the given environment.
-    """
-    collection_name = load_from_env("QDRANT_COLLECTION")
-    url = load_from_env("QDRANT_URL")
-    api_key = os.getenv("QDRANT_API_KEY")
-
-    store = QdrantVectorStore(
-        collection_name=collection_name,
-        url=url,
-        api_key=api_key,
-    )
-
-    return store
-
-
 # import os
 
 # import qdrant_client
@@ -66,3 +38,39 @@ def get_vector_store() -> VectorStore:
 #         name="RAG_tool",
 #         description="Use this tool to answer user questions about the transcription data.",
 #     )
+
+import logging
+
+from llama_index.llms.ollama import Ollama
+from llama_index.core.llms import ChatMessage, MessageRole
+from llama_index.core.workflow import (
+    StartEvent,
+    StopEvent,
+    Workflow,
+    step,
+)
+
+logger = logging.getLogger("uvicorn")
+
+
+class RagAgentWorkflow(Workflow):
+    llm = Ollama(model="llama3.2:3b")
+
+    @step
+    async def generation(self, event: StartEvent) -> StopEvent:
+        prompt = event.prompt
+        chat_message = ChatMessage(role=MessageRole.USER, content=prompt)
+        content = await self.llm.achat([chat_message])
+
+        return StopEvent(result=str(content))
+
+
+async def run_rag_agent_workflow() -> None:
+    w = RagAgentWorkflow(timeout=10)
+    print(await w.run(prompt="How are you?"))
+
+
+if __name__ == "__main__":
+    import asyncio
+
+    asyncio.run(run_rag_agent_workflow())

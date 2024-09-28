@@ -1,7 +1,7 @@
 """API for the chatbot."""
 
 from cadwyn import VersionedAPIRouter
-from models import Message
+from app.chatbot.schema import Message
 from fastapi.responses import ORJSONResponse, HTTPException
 
 from uuid import uuid4
