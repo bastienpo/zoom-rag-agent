@@ -11,6 +11,7 @@ clean:
 	rm -rf __pycache__
 	rm -rf .pytest_cache
 	rm -rf .ruff_cache
+	rm -rf ./lib
 
 quality:
 	ruff check .

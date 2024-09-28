@@ -1,3 +1,5 @@
+"""API for the chatbot."""
+
 from cadwyn import VersionedAPIRouter
 from models import Message
 from fastapi.responses import ORJSONResponse, HTTPException

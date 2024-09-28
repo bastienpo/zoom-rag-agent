@@ -1,6 +1,7 @@
 import logging
 
 from llama_index.llms.ollama import Ollama
+from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.core.workflow import (
     StartEvent,
     StopEvent,
@@ -13,7 +14,7 @@ from dotenv import load_dotenv, find_dotenv
 # Load environment variables
 load_dotenv(find_dotenv())
 
-_LOGGER = logging.getLogger(__name__)
+logger = logging.getLogger("uvicorn")
 
 
 class RagAgentWorkflow(Workflow):
@@ -22,7 +23,8 @@ class RagAgentWorkflow(Workflow):
     @step
     async def generation(self, event: StartEvent) -> StopEvent:
         prompt = event.prompt
-        content = await self.llm.acomplete(prompt)
+        chat_message = ChatMessage(role=MessageRole.USER, content=prompt)
+        content = await self.llm.achat([chat_message])
 
         return StopEvent(result=str(content))
 
