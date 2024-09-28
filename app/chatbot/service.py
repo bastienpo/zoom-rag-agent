@@ -65,12 +65,12 @@ class RagAgentWorkflow(Workflow):
         return StopEvent(result=str(content))
 
 
-async def run_rag_agent_workflow() -> None:
-    w = RagAgentWorkflow(timeout=10)
-    print(await w.run(prompt="How are you?"))
+# async def run_rag_agent_workflow() -> None:
+#     w = RagAgentWorkflow(timeout=10)
+#     print(await w.run(prompt="How are you?"))
 
 
-if __name__ == "__main__":
-    import asyncio
+# if __name__ == "__main__":
+#     import asyncio
 
-    asyncio.run(run_rag_agent_workflow())
+#     asyncio.run(run_rag_agent_workflow())

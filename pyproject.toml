@@ -14,8 +14,13 @@ dependencies = [
     "llama-index-llms-ollama>=0.3.3",
     "llama-index-vector-stores-qdrant>=0.3.0",
     "python-dotenv>=1.0.1",
-    # "langfuse>=2.51.1",
 ]
 
 [tool.uv]
 dev-dependencies = ["llama-index-utils-workflow>=0.2.1", "pytest>=8.3.3"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+select = ["ALL"]
+pydocstyle.convention = "google"

@@ -4,7 +4,7 @@ run:
 	uv run fastapi run
 
 dev:
-	uv run fastapi dev
+	uv run fastapi dev --app /app/main.py
 
 clean:
 	rm -rf **/*.pyc

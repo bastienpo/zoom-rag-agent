@@ -1,5 +1,8 @@
-from dotenv import load_dotenv, find_dotenv
+"""Configuration for the application."""
+
 import os
+
+from dotenv import find_dotenv, load_dotenv
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 
