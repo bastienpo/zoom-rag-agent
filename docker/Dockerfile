@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-project --no-dev
 
-ADD . /app
+ADD .. /app
 
 # Install project dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
