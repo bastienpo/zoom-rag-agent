@@ -1,6 +1,18 @@
-# import os
+"""Chatbot service."""
 
-# import qdrant_client
+import logging
+
+from llama_index.core.llms import ChatMessage, MessageRole
+from llama_index.core.workflow import (
+    StartEvent,
+    StopEvent,
+    Workflow,
+    step,
+)
+from llama_index.llms.ollama import Ollama
+
+logger = logging.getLogger(__name__)
+
 # from llama_index.core import VectorStoreIndex
 # from llama_index.core.query_engine import RetrieverQueryEngine
 # from llama_index.core.tools import FunctionTool
@@ -38,19 +50,6 @@
 #         name="RAG_tool",
 #         description="Use this tool to answer user questions about the transcription data.",
 #     )
-
-import logging
-
-from llama_index.llms.ollama import Ollama
-from llama_index.core.llms import ChatMessage, MessageRole
-from llama_index.core.workflow import (
-    StartEvent,
-    StopEvent,
-    Workflow,
-    step,
-)
-
-logger = logging.getLogger("uvicorn")
 
 
 class RagAgentWorkflow(Workflow):
