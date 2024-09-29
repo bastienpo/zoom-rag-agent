@@ -18,7 +18,6 @@ class MessageData(Base):
     """Message data schema."""
 
     content: str = Field(description="The content of the message.")
-    stream: bool = Field(description="Whether the message is a stream.", default=False)
 
 
 class MessageResponse(Base):

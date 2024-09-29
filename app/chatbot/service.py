@@ -57,16 +57,10 @@ class MultiAgentWorkflow(Workflow):
 
     @step
     async def generation(self, event: StartEvent) -> StopEvent:
-        """Generation step.
-
-        Args:
-            event: The start event.
-
-        Returns:
-            StopEvent: The stop event.
-        """
+        """Generation step."""
         prompt = event.prompt
         chat_message = ChatMessage(role=MessageRole.USER, content=prompt)
-        content = await self.llm.achat([chat_message])
 
-        return StopEvent(result=str(content))
+        response = await self.llm.achat([chat_message])
+
+        return StopEvent(result=str(response))
