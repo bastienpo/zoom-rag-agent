@@ -20,7 +20,7 @@ dependencies = [
 dev-dependencies = ["llama-index-utils-workflow>=0.2.1", "pytest>=8.3.3"]
 
 [tool.ruff]
-line-length = 120
+line-length = 88
 target-version = "py312"
 
 [tool.ruff.lint]

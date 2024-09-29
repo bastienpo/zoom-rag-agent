@@ -1,9 +1,20 @@
 """Schema for the chatbot."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
-class Message(BaseModel):
+class Base(BaseModel):
+    """Base model schema with pydantic config."""
+
+    model_config = ConfigDict(
+        arbitrary_types_allowed=False,
+        extra="forbid",
+        validate_assignment=True,
+        strict=True,
+    )
+
+
+class Message(Base):
     """Message schema."""
 
     content: str = Field(description="The content of the message.")
