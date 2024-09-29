@@ -14,8 +14,15 @@ class Base(BaseModel):
     )
 
 
-class Message(Base):
-    """Message schema."""
+class MessageData(Base):
+    """Message data schema."""
 
     content: str = Field(description="The content of the message.")
     stream: bool = Field(description="Whether the message is a stream.", default=False)
+
+
+class MessageResponse(Base):
+    """Message response schema."""
+
+    id: str = Field(description="The ID of the message.")
+    content: str = Field(description="The content of the message.")

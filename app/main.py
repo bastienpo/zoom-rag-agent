@@ -3,12 +3,10 @@
 from datetime import date
 
 from cadwyn import Cadwyn, Version, VersionBundle
-from cadwyn.structure.versions import HeadVersion
 
 from app import chatbot
 
 version_bundle = VersionBundle(
-    HeadVersion(),
     Version(date(2024, 9, 29)),
 )
 

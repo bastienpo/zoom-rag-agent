@@ -1,9 +1,8 @@
 """API for the chatbot."""
 
 from cadwyn import VersionedAPIRouter
-from fastapi.responses import JSONResponse
 
-from app.chatbot.schema import Message
+from app.chatbot.schema import MessageData, MessageResponse
 from app.chatbot.service import generate_id
 
 router = VersionedAPIRouter(tags=["Chatbot"], prefix="/v1")
@@ -11,13 +10,12 @@ router = VersionedAPIRouter(tags=["Chatbot"], prefix="/v1")
 
 @router.post(
     "/messages",
-    response_model=Message,
+    response_model=MessageResponse,
     summary="Send messages to the chatbot.",
-    dependencies=[],
 )
-async def send_messages(message: Message) -> JSONResponse:
+async def send_messages(data: MessageData) -> MessageResponse:
     """Send messages to the chatbot."""
-    return {
-        "id": f"msg_{generate_id()}",
-        "content": message.content,
-    }
+    return MessageResponse(
+        id=f"msg_{generate_id()}",
+        content=data.content,
+    )
