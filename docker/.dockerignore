@@ -24,6 +24,8 @@ venv/
 .venv/
 pip-log.txt
 pip-delete-this-directory.txt
+.pyre
+.ruff_cache
 
 # Node.js-specific
 node_modules/

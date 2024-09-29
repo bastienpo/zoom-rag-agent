@@ -8,8 +8,8 @@ dependencies = [
     "cadwyn>=4.2.4",
     "fastapi>=0.115.0",
     "granian>=1.6.0",
-    "llama-index>=0.11.13",
-    "llama-index-core>=0.11.12",
+    "llama-index>=0.11.14",
+    "llama-index-core>=0.11.14",
     "llama-index-embeddings-jinaai>=0.3.1",
     "llama-index-llms-ollama>=0.3.3",
     "llama-index-vector-stores-qdrant>=0.3.0",
@@ -17,7 +17,13 @@ dependencies = [
 ]
 
 [tool.uv]
-dev-dependencies = ["llama-index-utils-workflow>=0.2.1", "pytest>=8.3.3"]
+dev-dependencies = [
+    "llama-index-utils-workflow>=0.2.1",
+    "pyre-check>=0.9.22",
+    "pytest-asyncio>=0.24.0",
+    "pytest>=8.3.3",
+    "ruff>=0.6.8",
+]
 
 [tool.ruff]
 line-length = 88
