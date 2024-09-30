@@ -25,8 +25,8 @@ def generate_id() -> str:
     return f"msg_{uuid4().hex[:8]}"
 
 
-def create_qdrant_rag_tool() -> FunctionTool:
-    """Create a RAG tool for Qdrant.
+def create_rag_tool() -> FunctionTool:
+    """Create a RAG tool.
 
     Args:
         collection_name: The name of the collection to create the RAG tool for.
@@ -43,10 +43,8 @@ def create_qdrant_rag_tool() -> FunctionTool:
 
     return FunctionTool.from_defaults(
         fn=query_engine.query,
-        name="RAG_tool",
-        description=(
-            "Use this tool to answer user questions about the transcription data."
-        ),
+        name="rag_tool",
+        description=("Tool to answer user questions about the transcription data."),
     )
 
 
@@ -61,6 +59,11 @@ class MultiAgentWorkflow(Workflow):
         prompt = event.prompt
         chat_message = ChatMessage(role=MessageRole.USER, content=prompt)
 
-        response = await self.llm.achat([chat_message])
+        rag_tool = create_rag_tool()
+
+        response = await self.llm.achat_with_tools(
+            tools=[rag_tool],
+            user_msg=chat_message,
+        )
 
         return StopEvent(result=str(response))
