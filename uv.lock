@@ -820,6 +820,18 @@ wheels = [
 ]
 
 [[package]]
+name = "llama-index-agent-lats"
+version = "0.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "llama-index-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f2/74/53237b9d7bb222c388f15cca4b08b661caeeb10b5ee15f0ee2453dcac79c/llama_index_agent_lats-0.2.1.tar.gz", hash = "sha256:dd4b0cbe5ad905f86976aa15402fe357e74d67fedd6c5efb1cb94569f44bd7bd", size = 5809 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fa/aa/9d1f13b4788a120a1191202faaa97db062ccca26c36368a97edd6ec9168d/llama_index_agent_lats-0.2.1-py3-none-any.whl", hash = "sha256:707d441ee49af9697cd1f2ff401cb1ec2b459923017ad471e0fb44d5ca7d16c5", size = 6462 },
+]
+
+[[package]]
 name = "llama-index-agent-openai"
 version = "0.3.4"
 source = { registry = "https://pypi.org/simple" }
@@ -2333,9 +2345,11 @@ dependencies = [
     { name = "fastapi" },
     { name = "granian" },
     { name = "llama-index" },
+    { name = "llama-index-agent-lats" },
     { name = "llama-index-core" },
     { name = "llama-index-embeddings-jinaai" },
     { name = "llama-index-llms-ollama" },
+    { name = "llama-index-utils-workflow" },
     { name = "llama-index-vector-stores-qdrant" },
     { name = "pydantic-settings" },
 ]
@@ -2356,9 +2370,11 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115.0" },
     { name = "granian", specifier = ">=1.6.0" },
     { name = "llama-index", specifier = ">=0.11.14" },
+    { name = "llama-index-agent-lats", specifier = ">=0.2.1" },
     { name = "llama-index-core", specifier = ">=0.11.14" },
     { name = "llama-index-embeddings-jinaai", specifier = ">=0.3.1" },
     { name = "llama-index-llms-ollama", specifier = ">=0.3.3" },
+    { name = "llama-index-utils-workflow", specifier = ">=0.2.1" },
     { name = "llama-index-vector-stores-qdrant", specifier = ">=0.3.0" },
     { name = "pydantic-settings", specifier = ">=2.5.2" },
 ]
