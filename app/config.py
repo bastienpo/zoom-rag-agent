@@ -21,10 +21,21 @@ class Settings(BaseSettings):
         case_sensitive=False,
     )
 
-    environment: Literal["dev", "prod", "test", "staging"] = Field(
-        default="dev",
-        description="The environment to run the application in.",
+    # Zoom configuration
+
+    zoom_client_id: str = Field(
+        description="The client ID for the Zoom API.",
     )
+
+    zoom_client_secret: str = Field(
+        description="The client secret for the Zoom API.",
+    )
+
+    zoom_verification_token: str = Field(
+        description="The verification token for the Zoom API.",
+    )
+
+    # Qdrant configuration
 
     qdrant_url: str = Field(
         default="http://localhost:6333",
