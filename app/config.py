@@ -6,7 +6,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class AutoSettings(BaseSettings):
+class Settings(BaseSettings):
     """Settings for the application.
 
     Use this class to automatically load the settings from the environment variables.
@@ -42,4 +42,4 @@ class AutoSettings(BaseSettings):
     )
 
 
-settings = AutoSettings()
+settings = Settings()

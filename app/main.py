@@ -7,7 +7,7 @@ from cadwyn import Cadwyn, Version, VersionBundle
 from app import chatbot
 
 version_bundle = VersionBundle(
-    Version(date(2024, 9, 29)),
+    Version(date(2024, 10, 9)),
 )
 
 app = Cadwyn(title="Zoom Rag Agent API", versions=version_bundle)
