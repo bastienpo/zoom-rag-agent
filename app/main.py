@@ -1,14 +1,37 @@
 """Main entry point for the application."""
 
-from datetime import date
+from collections.abc import Callable
 
-from cadwyn import Cadwyn, Version, VersionBundle
+from fastapi import FastAPI, Request, Response
 
 from app import chatbot
 
-version_bundle = VersionBundle(
-    Version(date(2024, 10, 9)),
-)
+app = FastAPI(title="Zoom Rag Agent API")
 
-app = Cadwyn(title="Zoom Rag Agent API", versions=version_bundle)
-app.generate_and_include_versioned_routers(chatbot.router)
+
+@app.middleware("http")
+async def common_headers(request: Request, call_next: Callable) -> Response:
+    """Add common headers to the response.
+
+    Args:
+        request: The incoming request.
+        call_next: The next middleware or route handler to call.
+
+    Returns:
+        The response from the next handler.
+
+    """
+    response = await call_next(request)
+
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; style-src 'self' fonts.googleapis.com; font-src fonts.gstatic.com"  # noqa: E501
+    )
+    response.headers["Referrer-Policy"] = "origin-when-cross-origin"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "deny"
+    response.headers["X-XSS-Protection"] = "0"
+
+    return response
+
+
+app.include_router(chatbot.router)

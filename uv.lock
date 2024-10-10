@@ -128,23 +128,6 @@ wheels = [
 ]
 
 [[package]]
-name = "cadwyn"
-version = "4.4.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "fastapi" },
-    { name = "issubclass" },
-    { name = "jinja2" },
-    { name = "pydantic" },
-    { name = "starlette" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/09/30/80892eaa9a6c90f230512475a0e45ea1781dfd38801cc65754c55bfbe567/cadwyn-4.4.0.tar.gz", hash = "sha256:4e90baac3835a3c45a207435b4139c54c701a1f150b8e713231fc752da9f8807", size = 671573 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/cb/62/f1aa33378145058e0190cc28d26b94cc712f29e94c86d0b788d7b48c1561/cadwyn-4.4.0-py3-none-any.whl", hash = "sha256:4426f277d65f8ef2eed67ba295327ccfdafebc2f4ebe375c0e4882d97bcc9e55", size = 53350 },
-]
-
-[[package]]
 name = "certifi"
 version = "2024.8.30"
 source = { registry = "https://pypi.org/simple" }
@@ -543,15 +526,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f7/21/48db7d9dd622b9692575004c7c98f85f5629428f58596c59606d36c51b58/ipython-8.28.0.tar.gz", hash = "sha256:0d0d15ca1e01faeb868ef56bc7ee5a0de5bd66885735682e8a322ae289a13d1a", size = 5495762 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f4/3a/5d8680279ada9571de8469220069d27024ee47624af534e537c9ff49a450/ipython-8.28.0-py3-none-any.whl", hash = "sha256:530ef1e7bb693724d3cdc37287c80b07ad9b25986c007a53aa1857272dac3f35", size = 819456 },
-]
-
-[[package]]
-name = "issubclass"
-version = "0.1.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/7d/89/f9a05e3bbc7cc2a5806138e62f2f94504e491411c8d0c994296dcfd0cfaf/issubclass-0.1.2.tar.gz", hash = "sha256:740dabca95adbd25442d1dd616ed455046ab9551c38514758dc291f431fded35", size = 1850 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/69/3135026fbb9d4bcdc1e76a9e4c18fc4c6161a6eea6905b76d27eeaa00940/issubclass-0.1.2-py3-none-any.whl", hash = "sha256:ea54b6b27526cf1be49a4bc15d713bef0b480e0230482626a37cf21529da3864", size = 2164 },
 ]
 
 [[package]]
@@ -1848,7 +1822,6 @@ name = "zoom-rag-agent"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "cadwyn" },
     { name = "fastapi" },
     { name = "granian" },
     { name = "llama-index" },
@@ -1866,7 +1839,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "cadwyn", specifier = ">=4.4" },
     { name = "fastapi", specifier = ">=0.115" },
     { name = "granian", specifier = ">=1.6" },
     { name = "llama-index", specifier = ">=0.11.17" },

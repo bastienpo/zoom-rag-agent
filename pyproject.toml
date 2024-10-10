@@ -4,9 +4,11 @@ version = "0.1.0"
 description = "A RAG agent used in Zoom"
 readme = "README.md"
 requires-python = ">=3.12"
-classifiers = [ "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: 3.12" ]
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+]
 dependencies = [
-  "cadwyn>=4.4",
   "fastapi>=0.115",
   "granian>=1.6",
   "llama-index>=0.11.17",
@@ -21,5 +23,3 @@ dev-dependencies = [
   "granian[reload]~=1.6.0",
   "llama-index-utils-workflow~=0.2.1",
 ]
-
-pydocstyle.convention = "google"

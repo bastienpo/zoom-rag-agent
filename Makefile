@@ -5,7 +5,7 @@ run:
 
 dev:
 	@echo "Starting development server..."
-	@uv run granian --interface asgi --reload --loop uvloop --workers 1 --log app.main:app
+	@uv run granian --port 4000 --interface asgi --reload --loop uvloop --workers 1 --log app.main:app
 
 clean:
 	@echo "Cleaning the project files..."
@@ -15,11 +15,11 @@ clean:
 
 check:
 	ruff check --config pyproject.toml
-	ruff format --check --config pyproject.toml
+	ruff format --check --config pyproject.toml 
 
 fix:
-	ruff format --config pyproject.toml
-	ruff check --fix --unsafe-fixes --config pyproject.toml
+	ruff format . --config pyproject.toml
+	ruff check . --select I --fix --unsafe-fixes --config pyproject.toml
 
 help:
 	@echo "Usage:"

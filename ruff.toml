@@ -4,3 +4,5 @@ target-version = "py312"
 [lint]
 select = ["ALL"]
 ignore = ["COM812", "ISC001", "D104"]
+
+pydocstyle.convention = "google"

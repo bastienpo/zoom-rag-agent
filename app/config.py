@@ -1,7 +1,5 @@
 """Configuration for the application."""
 
-from typing import Literal
-
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -19,6 +17,7 @@ class Settings(BaseSettings):
         strict=True,
         frozen=True,
         case_sensitive=False,
+        env_file=".env",
     )
 
     # Zoom configuration
@@ -31,8 +30,22 @@ class Settings(BaseSettings):
         description="The client secret for the Zoom API.",
     )
 
+    zoom_bot_jid: str = Field(
+        description="The JID of the Zoom bot.",
+    )
+
     zoom_verification_token: str = Field(
         description="The verification token for the Zoom API.",
+    )
+
+    zoom_message_url: str = Field(
+        default="https://api.zoom.us/v2/im/chat/messages",
+        description="The URL for the Zoom API.",
+    )
+
+    zoom_oauth_url: str = Field(
+        default="https://zoom.us/oauth/token",
+        description="The URL for the Zoom API.",
     )
 
     # Qdrant configuration

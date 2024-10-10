@@ -1,5 +1,7 @@
 """Utility functions for the chatbot."""
 
+from enum import Enum
+
 import httpx
 from llama_index.core.vector_stores.types import VectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
@@ -24,9 +26,12 @@ def connect_to_vector_store() -> VectorStore:
 
 
 async def get_access_token() -> str:
-    """Get the access token for the Zoom API."""
-    url = "https://zoom.us/oauth/token"
+    """Get the access token for the Zoom API.
 
+    Returns:
+        The access token for the Zoom API.
+
+    """
     data = {
         "grant_type": "client_credentials",
         "client_id": settings.zoom_client_id,
@@ -34,7 +39,7 @@ async def get_access_token() -> str:
     }
 
     async with httpx.AsyncClient() as client:
-        response = await client.post(url, data=data)
+        response = await client.post(settings.zoom_oauth_url, data=data)
         return response.json()["access_token"]
 
 
@@ -49,14 +54,23 @@ async def send_chat_message(channel: str, message: str) -> dict:
         The response from the Zoom API.
 
     """
-    url = "https://api.zoom.us/v2/im/chat/messages"
     headers = {
         "Authorization": f"Bearer {await get_access_token()}",
         "Content-Type": "application/json",
     }
 
-    data = {"robot_jid": channel, "message": message}
+    data = {
+        "robot_jid": settings.zoom_bot_jid,
+        "to_jid": channel,
+        "user_jid": channel,
+        "content": {
+            "head": {"text": "Zoomby"},
+            "body": [{"type": "message", "text": message}],
+        },
+    }
 
     async with httpx.AsyncClient() as client:
-        response = await client.post(url, headers=headers, json=data)
+        response = await client.post(
+            settings.zoom_message_url, headers=headers, json=data
+        )
         return response.json()
