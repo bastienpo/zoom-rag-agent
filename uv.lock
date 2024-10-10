@@ -1829,6 +1829,7 @@ dependencies = [
     { name = "llama-index-llms-ollama" },
     { name = "llama-index-vector-stores-qdrant" },
     { name = "pydantic-settings" },
+    { name = "uvloop" },
 ]
 
 [package.dev-dependencies]
@@ -1846,6 +1847,7 @@ requires-dist = [
     { name = "llama-index-llms-ollama", specifier = ">=0.3.4" },
     { name = "llama-index-vector-stores-qdrant", specifier = ">=0.3" },
     { name = "pydantic-settings", specifier = ">=2.5.2" },
+    { name = "uvloop", specifier = ">=0.20.0" },
 ]
 
 [package.metadata.requires-dev]

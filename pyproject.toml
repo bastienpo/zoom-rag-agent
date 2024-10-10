@@ -16,6 +16,7 @@ dependencies = [
   "llama-index-llms-ollama>=0.3.4",
   "llama-index-vector-stores-qdrant>=0.3",
   "pydantic-settings>=2.5.2",
+  "uvloop>=0.20",
 ]
 
 [tool.uv]

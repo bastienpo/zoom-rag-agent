@@ -64,7 +64,7 @@ async def send_chat_message(channel: str, message: str) -> dict:
         "to_jid": channel,
         "user_jid": channel,
         "content": {
-            "head": {"text": "Zoomby"},
+            "head": {"text": "🤖 Assistant"},
             "body": [{"type": "message", "text": message}],
         },
     }

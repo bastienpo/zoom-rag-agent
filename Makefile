@@ -5,7 +5,7 @@ run:
 
 dev:
 	@echo "Starting development server..."
-	@uv run granian --port 4000 --interface asgi --reload --loop uvloop --workers 1 --log app.main:app
+	@uv run granian --interface asgi --reload --loop uvloop --workers 1 --log app.main:app
 
 clean:
 	@echo "Cleaning the project files..."
