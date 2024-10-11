@@ -1,7 +1,5 @@
 """Utility functions for the chatbot."""
 
-from enum import Enum
-
 import httpx
 from llama_index.core.vector_stores.types import VectorStore
 from llama_index.vector_stores.qdrant import QdrantVectorStore
@@ -22,6 +20,7 @@ def connect_to_vector_store() -> VectorStore:
         collection_name=settings.collection,
         url=settings.qdrant_url,
         api_key=settings.qdrant_api_key,
+        enable_hybrid=True,
     )
 
 
